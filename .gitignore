@@ -1,0 +1,92 @@
+#################
+## Eclipse
+#################
+*.pydevproject
+.project
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+#################
+## Idea
+#################
+**/*.iml
+.idea/
+
+#################
+## Maven
+#################
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!/.mvn/wrapper/maven-wrapper.jar
+
+#################
+## Logger Files
+#################
+/fdrh-impl/logs/
+/fdrh-node/fdrh-node-maintain/logs/
+/fdrh-node/fdrh-node-record/logs/
+/fdrh-node/fdrh-node-inspect/logs/
+/fdrh-node/fdrh-node-all/logs/
+
+#################
+## Configuration Files
+#################
+/fdrh-impl/conf/
+/fdrh-node/fdrh-node-maintain/conf/
+/fdrh-node/fdrh-node-record/conf/
+/fdrh-node/fdrh-node-inspect/conf/
+/fdrh-node/fdrh-node-all/conf/
+
+#################
+## Libext Files
+#################
+/fdrh-node/fdrh-node-maintain/libext/
+/fdrh-node/fdrh-node-record/libext/
+/fdrh-node/fdrh-node-inspect/libext/
+/fdrh-node/fdrh-node-all/libext/
+
+#################
+## Opt Files
+#################
+/fdrh-node/fdrh-node-maintain/opt/
+/fdrh-node/fdrh-node-record/opt/
+/fdrh-node/fdrh-node-inspect/opt/
+/fdrh-node/fdrh-node-all/opt/
+
+#################
+## Optext Files
+#################
+/fdrh-node/fdrh-node-maintain/optext/
+/fdrh-node/fdrh-node-record/optext/
+/fdrh-node/fdrh-node-inspect/optext/
+/fdrh-node/fdrh-node-all/optext/
