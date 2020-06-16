@@ -9,29 +9,37 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class PersistenceValueTableDefinition implements TableDefinition {
+public class FilteredValueTableDefinition implements TableDefinition {
 
     private final TableDefinition delegate;
 
-    public PersistenceValueTableDefinition() {
+    public FilteredValueTableDefinition() {
         PhoenixTableDefinitionHelper helper = new PhoenixTableDefinitionHelper();
-        helper.setTableName("fdrh.persistence_value");
+        helper.setTableName("fdrh.filtered_value");
         helper.addColumn("id", "BIGINT");
         helper.addColumn("point_id", "BIGINT");
+        helper.addColumn("filter_id", "BIGINT");
         helper.addColumn("happened_date", "DATE");
         helper.addColumn("column_value", "VARCHAR");
+        helper.addColumn("message", "VARCHAR");
         helper.setPrimaryKey("id");
         helper.setPrimaryKeyAsc("id");
         helper.setTableSaltBuckets(30);
         helper.setTableImmutableRows(true);
-        helper.addIndex("idx_persistence_value_point_id", PhoenixConstants.IndexType.LOCAL,
+        helper.addIndex("idx_filtered_value_point_id", PhoenixConstants.IndexType.LOCAL,
                 "point_id", "happened_date");
-        helper.setIndexAsc("idx_persistence_value_point_id", "happened_date");
-        helper.setIndexInclude("idx_persistence_value_point_id", "column_value");
-        helper.addIndex("idx_persistence_value_happened_date", PhoenixConstants.IndexType.LOCAL,
+        helper.setIndexAsc("idx_filtered_value_point_id", "happened_date");
+        helper.setIndexInclude("idx_filtered_value_point_id", "filter_id", "column_value",
+                "message");
+        helper.addIndex("idx_filtered_value_filter_id", PhoenixConstants.IndexType.LOCAL,
+                "filter_id", "happened_date");
+        helper.setIndexAsc("idx_filtered_value_filter_id", "happened_date");
+        helper.setIndexInclude("idx_filtered_value_filter_id", "point_id", "column_value",
+                "message");
+        helper.addIndex("idx_filtered_value_happened_date", PhoenixConstants.IndexType.LOCAL,
                 "happened_date");
-        helper.setIndexAsc("idx_persistence_value_happened_date", "happened_date");
-        helper.setIndexInclude("idx_persistence_value_happened_date", "point_id",
+        helper.setIndexAsc("idx_filtered_value_happened_date", "happened_date");
+        helper.setIndexInclude("idx_filtered_value_happened_date", "point_id", "filter_id",
                 "column_value");
         delegate = helper.buildTableDefinition();
     }

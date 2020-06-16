@@ -1,7 +1,7 @@
 package com.dwarfeng.fdrh.impl.dao.template;
 
 import com.dwarfeng.fdr.stack.service.PersistenceValueMaintainService;
-import com.dwarfeng.subgrade.sdk.jdbc.definition.TableDefinition;
+import com.dwarfeng.fdrh.impl.dao.definition.PersistenceValueTableDefinition;
 import com.dwarfeng.subgrade.sdk.jdbc.template.PhoenixPresetLookupTemplate;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import java.util.Objects;
 @Component
 public class PersistenceValuePresetLookupTemplate extends PhoenixPresetLookupTemplate {
 
-    public PersistenceValuePresetLookupTemplate(@NotNull TableDefinition tableDefinition) {
+    public PersistenceValuePresetLookupTemplate(@NotNull PersistenceValueTableDefinition tableDefinition) {
         super(tableDefinition);
     }
 
@@ -30,6 +30,7 @@ public class PersistenceValuePresetLookupTemplate extends PhoenixPresetLookupTem
         }
     }
 
+    @SuppressWarnings("unused")
     private String childForPointWhere(String preset, Object[] args) {
         LongIdKey key = (LongIdKey) args[0];
         if (Objects.isNull(key)) {
@@ -39,10 +40,12 @@ public class PersistenceValuePresetLookupTemplate extends PhoenixPresetLookupTem
         }
     }
 
+    @SuppressWarnings("unused")
     private String betweenWhere(String preset, Object[] args) {
         return "happened_date >= ? AND happened_date < ?";
     }
 
+    @SuppressWarnings("unused")
     private String childForPointBetweenWhere(String preset, Object[] args) {
         String clause;
         LongIdKey key = (LongIdKey) args[0];

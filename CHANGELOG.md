@@ -4,7 +4,10 @@
 
 #### 功能构建
 
-- 尝试将 PersistenceValue 的数据访问层转移至 HBase。
+- 将持久数据实体的数据访问层转移至HBase。
+  - com.dwarfeng.fdr.stack.bean.entity.PersistenceValue
+  - com.dwarfeng.fdr.stack.bean.entity.FilteredValue
+  - com.dwarfeng.fdr.stack.bean.entity.TriggeredValue
 
 #### Bug修复
 

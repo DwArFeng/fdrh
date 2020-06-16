@@ -1,14 +1,18 @@
 package com.dwarfeng.fdrh.impl.configuration;
 
+import com.dwarfeng.fdr.impl.bean.entity.HibernateFilteredValue;
+import com.dwarfeng.fdr.impl.bean.entity.HibernateTriggeredValue;
 import com.dwarfeng.fdr.sdk.bean.entity.FastJsonRealtimeValue;
 import com.dwarfeng.fdr.stack.bean.entity.*;
 import com.dwarfeng.fdrh.impl.bean.entity.*;
+import com.dwarfeng.fdrh.impl.dao.definition.FilteredValueTableDefinition;
 import com.dwarfeng.fdrh.impl.dao.definition.PersistenceValueTableDefinition;
-import com.dwarfeng.fdrh.impl.dao.mapper.PersistenceValueCrudMapper;
-import com.dwarfeng.fdrh.impl.dao.mapper.PersistenceValuePresetLookupMapper;
-import com.dwarfeng.fdrh.impl.dao.mapper.PersistenceValueResultMapper;
+import com.dwarfeng.fdrh.impl.dao.definition.TriggeredValueTableDefinition;
+import com.dwarfeng.fdrh.impl.dao.mapper.*;
 import com.dwarfeng.fdrh.impl.dao.preset.*;
+import com.dwarfeng.fdrh.impl.dao.template.FilteredValuePresetLookupTemplate;
 import com.dwarfeng.fdrh.impl.dao.template.PersistenceValuePresetLookupTemplate;
+import com.dwarfeng.fdrh.impl.dao.template.TriggeredValuePresetLookupTemplate;
 import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
 import com.dwarfeng.subgrade.impl.dao.*;
 import com.dwarfeng.subgrade.sdk.bean.key.HibernateLongIdKey;
@@ -43,13 +47,9 @@ public class DaoConfiguration {
     private Mapper mapper;
 
     @Autowired
-    private FilteredValuePresetCriteriaMaker filteredValuePresetCriteriaMaker;
-    @Autowired
     private FilterInfoPresetCriteriaMaker filterInfoPresetCriteriaMaker;
     @Autowired
     private PointPresetCriteriaMaker pointPresetCriteriaMaker;
-    @Autowired
-    private TriggeredValuePresetCriteriaMaker triggeredValuePresetCriteriaMaker;
     @Autowired
     private TriggerInfoPresetCriteriaMaker triggerInfoPresetCriteriaMaker;
     @Autowired
@@ -69,6 +69,26 @@ public class DaoConfiguration {
     private PersistenceValuePresetLookupTemplate persistenceValuePresetLookupTemplate;
     @Autowired
     private PersistenceValuePresetLookupMapper persistenceValuePresetLookupMapper;
+    @Autowired
+    private FilteredValueTableDefinition filteredValuePhoenixTableDefinition;
+    @Autowired
+    private FilteredValueCrudMapper filteredValueCrudMapper;
+    @Autowired
+    private FilteredValueResultMapper filteredValueResultMapper;
+    @Autowired
+    private FilteredValuePresetLookupTemplate filteredValuePresetLookupTemplate;
+    @Autowired
+    private FilteredValuePresetLookupMapper filteredValuePresetLookupMapper;
+    @Autowired
+    private TriggeredValueTableDefinition triggeredValuePhoenixTableDefinition;
+    @Autowired
+    private TriggeredValueCrudMapper triggeredValueCrudMapper;
+    @Autowired
+    private TriggeredValueResultMapper triggeredValueResultMapper;
+    @Autowired
+    private TriggeredValuePresetLookupTemplate triggeredValuePresetLookupTemplate;
+    @Autowired
+    private TriggeredValuePresetLookupMapper triggeredValuePresetLookupMapper;
 
     @Value("${redis.dbkey.realtime_value}")
     private String realtimeValueDbKey;
@@ -94,16 +114,6 @@ public class DaoConfiguration {
                 hibernateTemplate,
                 new DozerBeanTransformer<>(FilteredValue.class, HibernateFilteredValue.class, mapper),
                 HibernateFilteredValue.class
-        );
-    }
-
-    @Bean
-    public HibernatePresetLookupDao<FilteredValue, HibernateFilteredValue> filteredValueHibernatePresetLookupDao() {
-        return new HibernatePresetLookupDao<>(
-                hibernateTemplate,
-                new DozerBeanTransformer<>(FilteredValue.class, HibernateFilteredValue.class, mapper),
-                HibernateFilteredValue.class,
-                filteredValuePresetCriteriaMaker
         );
     }
 
@@ -200,16 +210,6 @@ public class DaoConfiguration {
                 hibernateTemplate,
                 new DozerBeanTransformer<>(TriggeredValue.class, HibernateTriggeredValue.class, mapper),
                 HibernateTriggeredValue.class
-        );
-    }
-
-    @Bean
-    public HibernatePresetLookupDao<TriggeredValue, HibernateTriggeredValue> triggeredValueHibernatePresetLookupDao() {
-        return new HibernatePresetLookupDao<>(
-                hibernateTemplate,
-                new DozerBeanTransformer<>(TriggeredValue.class, HibernateTriggeredValue.class, mapper),
-                HibernateTriggeredValue.class,
-                triggeredValuePresetCriteriaMaker
         );
     }
 
@@ -340,7 +340,6 @@ public class DaoConfiguration {
         );
     }
 
-
     @Bean
     public HibernateBatchWriteDao<FilteredValue, HibernateFilteredValue> filteredValueHibernateBatchWriteDao() {
         return new HibernateBatchWriteDao<>(
@@ -396,6 +395,86 @@ public class DaoConfiguration {
                 persistenceValuePresetLookupTemplate,
                 persistenceValuePresetLookupMapper,
                 persistenceValueResultMapper
+        );
+    }
+
+    @Bean
+    public JdbcBatchBaseDao<LongIdKey, FilteredValue> filteredValueJdbcBatchBaseDao() {
+        return new JdbcBatchBaseDao<>(
+                jdbcTemplate,
+                new PhoenixCrudTemplate(filteredValuePhoenixTableDefinition),
+                filteredValueCrudMapper,
+                filteredValueResultMapper,
+                new PhoenixCreateTableTemplate(filteredValuePhoenixTableDefinition)
+        );
+    }
+
+    @Bean
+    public JdbcBatchWriteDao<FilteredValue> filteredValueJdbcBatchWriteDao() {
+        return new JdbcBatchWriteDao<>(
+                jdbcTemplate,
+                new PhoenixCrudTemplate(filteredValuePhoenixTableDefinition),
+                filteredValueCrudMapper
+        );
+    }
+
+    @Bean
+    public JdbcEntireLookupDao<FilteredValue> filteredValueJdbcEntireLookupDao() {
+        return new JdbcEntireLookupDao<>(
+                jdbcTemplate,
+                new PhoenixEntireLookupTemplate(filteredValuePhoenixTableDefinition),
+                new PhoenixEntireLookupMapper(),
+                filteredValueResultMapper
+        );
+    }
+
+    @Bean
+    public JdbcPresetLookupDao<FilteredValue> filteredValueJdbcPresetLookupDao() {
+        return new JdbcPresetLookupDao<>(
+                jdbcTemplate,
+                filteredValuePresetLookupTemplate,
+                filteredValuePresetLookupMapper,
+                filteredValueResultMapper
+        );
+    }
+
+    @Bean
+    public JdbcBatchBaseDao<LongIdKey, TriggeredValue> triggeredValueJdbcBatchBaseDao() {
+        return new JdbcBatchBaseDao<>(
+                jdbcTemplate,
+                new PhoenixCrudTemplate(triggeredValuePhoenixTableDefinition),
+                triggeredValueCrudMapper,
+                triggeredValueResultMapper,
+                new PhoenixCreateTableTemplate(triggeredValuePhoenixTableDefinition)
+        );
+    }
+
+    @Bean
+    public JdbcBatchWriteDao<TriggeredValue> triggeredValueJdbcBatchWriteDao() {
+        return new JdbcBatchWriteDao<>(
+                jdbcTemplate,
+                new PhoenixCrudTemplate(triggeredValuePhoenixTableDefinition),
+                triggeredValueCrudMapper
+        );
+    }
+
+    @Bean
+    public JdbcEntireLookupDao<TriggeredValue> triggeredValueJdbcEntireLookupDao() {
+        return new JdbcEntireLookupDao<>(
+                jdbcTemplate,
+                new PhoenixEntireLookupTemplate(triggeredValuePhoenixTableDefinition),
+                new PhoenixEntireLookupMapper(),
+                triggeredValueResultMapper
+        );
+    }
+
+    @Bean
+    public JdbcPresetLookupDao<TriggeredValue> triggeredValueJdbcPresetLookupDao() {
+        return new JdbcPresetLookupDao<>(
+                jdbcTemplate,
+                triggeredValuePresetLookupTemplate,
+                triggeredValuePresetLookupMapper,
+                triggeredValueResultMapper
         );
     }
 }

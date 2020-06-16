@@ -69,12 +69,6 @@ public class ServiceConfiguration {
     private MapperSupportCache mapperSupportCache;
     @Autowired
     private MapperSupportDao mapperSupportDao;
-    @Autowired
-    private FilteredValueWriteDao filteredValueWriteDao;
-    @Autowired
-    private TriggeredValueWriteDao triggeredValueWriteDao;
-    @Autowired
-    private PersistenceValueWriteDao persistenceValueWriteDao;
 
     @Value("${cache.timeout.entity.filter_support}")
     private long filterSupportTimeout;
@@ -360,11 +354,10 @@ public class ServiceConfiguration {
         );
     }
 
-
     @Bean
     public DaoOnlyBatchWriteService<LongIdKey, FilteredValue> filteredValueDaoOnlyBatchWriteService() {
         return new DaoOnlyBatchWriteService<>(
-                filteredValueWriteDao,
+                filteredValueDao,
                 longIdKeyKeyFetcher(),
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN
@@ -374,7 +367,7 @@ public class ServiceConfiguration {
     @Bean
     public DaoOnlyBatchWriteService<LongIdKey, TriggeredValue> triggeredValueDaoOnlyBatchWriteService() {
         return new DaoOnlyBatchWriteService<>(
-                triggeredValueWriteDao,
+                triggeredValueDao,
                 longIdKeyKeyFetcher(),
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN
@@ -384,7 +377,7 @@ public class ServiceConfiguration {
     @Bean
     public DaoOnlyBatchWriteService<LongIdKey, PersistenceValue> persistenceValueDaoOnlyBatchWriteService() {
         return new DaoOnlyBatchWriteService<>(
-                persistenceValueWriteDao,
+                persistenceValueDao,
                 longIdKeyKeyFetcher(),
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN

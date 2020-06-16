@@ -3,6 +3,7 @@ package com.dwarfeng.fdrh.impl.dao;
 import com.dwarfeng.fdr.stack.bean.entity.PersistenceValue;
 import com.dwarfeng.fdr.stack.dao.PersistenceValueDao;
 import com.dwarfeng.subgrade.impl.dao.JdbcBatchBaseDao;
+import com.dwarfeng.subgrade.impl.dao.JdbcBatchWriteDao;
 import com.dwarfeng.subgrade.impl.dao.JdbcEntireLookupDao;
 import com.dwarfeng.subgrade.impl.dao.JdbcPresetLookupDao;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
@@ -23,6 +24,8 @@ public class PersistenceValueDaoImpl implements PersistenceValueDao {
     private JdbcEntireLookupDao<PersistenceValue> entireLookupDao;
     @Autowired
     private JdbcPresetLookupDao<PersistenceValue> presetLookupDao;
+    @Autowired
+    private JdbcBatchWriteDao<PersistenceValue> batchWriteDao;
 
     @Override
     @BehaviorAnalyse
@@ -124,5 +127,17 @@ public class PersistenceValueDaoImpl implements PersistenceValueDao {
     @BehaviorAnalyse
     public int lookupCount(String preset, Object[] objs) throws DaoException {
         return presetLookupDao.lookupCount(preset, objs);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    public void write(PersistenceValue entity) throws DaoException {
+        batchWriteDao.write(entity);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    public void batchWrite(List<PersistenceValue> entities) throws DaoException {
+        batchWriteDao.batchWrite(entities);
     }
 }
