@@ -138,8 +138,7 @@
                         <manifest>  
                              <addClasspath>true</addClasspath>  
                              <classpathPrefix>./</classpathPrefix>  
-                             <mainClass>
-                                com.dwarfeng.fdr.node.all.com.dwarfeng.fdrh.node.all.launcher.Launcher</mainClass>  
+                             <mainClass>${mainClass}</mainClass>  
                         </manifest>
                     </archive>
                     <finalName>${project.name}-${project.version}</finalName>
