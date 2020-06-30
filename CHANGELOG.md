@@ -4,6 +4,8 @@
 
 #### 功能构建
 
+- 引用fdr项目版本1.7.0.a。
+- 引用subgrade依赖版本1.1.1.b。
 - 将持久数据实体的数据访问层转移至HBase。
   - com.dwarfeng.fdr.stack.bean.entity.PersistenceValue
   - com.dwarfeng.fdr.stack.bean.entity.FilteredValue

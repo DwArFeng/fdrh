@@ -6,14 +6,20 @@ import com.dwarfeng.subgrade.impl.dao.JdbcBatchBaseDao;
 import com.dwarfeng.subgrade.impl.dao.JdbcBatchWriteDao;
 import com.dwarfeng.subgrade.impl.dao.JdbcEntireLookupDao;
 import com.dwarfeng.subgrade.impl.dao.JdbcPresetLookupDao;
+import com.dwarfeng.subgrade.sdk.database.executor.DatabaseTask;
+import com.dwarfeng.subgrade.sdk.database.executor.JdbcDatabaseExecutor;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.exception.DaoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class FilteredValueDaoImpl implements FilteredValueDao {
@@ -26,6 +32,20 @@ public class FilteredValueDaoImpl implements FilteredValueDao {
     private JdbcPresetLookupDao<FilteredValue> presetLookupDao;
     @Autowired
     private JdbcBatchWriteDao<FilteredValue> batchWriteDao;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+    @Autowired(required = false)
+    @Qualifier("filteredValueInitDatabaseTask")
+    private DatabaseTask<?> initDatabaseTask;
+
+    @PostConstruct
+    public void init() {
+        if (Objects.nonNull(initDatabaseTask)) {
+            JdbcDatabaseExecutor<Object> executor = new JdbcDatabaseExecutor<>(jdbcTemplate);
+            executor.executeTask(initDatabaseTask);
+        }
+    }
 
     @Override
     @BehaviorAnalyse
