@@ -4,7 +4,10 @@
 
 #### 功能构建
 
-- (无)
+- 更改 Phoenix 表结构，去除数据表的 tableImmutableRows 属性。
+  - fdrh.persistence_value
+  - fdrh.filtered_value
+  - fdrh.triggered_value
 
 #### Bug修复
 

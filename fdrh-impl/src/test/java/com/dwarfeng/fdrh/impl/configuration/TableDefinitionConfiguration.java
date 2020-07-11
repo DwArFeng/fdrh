@@ -32,7 +32,6 @@ public class TableDefinitionConfiguration {
                 null, null);
 
         PhoenixHelper.setTableSaltBuckets(tableDefinition, 30);
-        PhoenixHelper.setTableImmutableRows(tableDefinition, true);
 
         PhoenixHelper.addIndex(tableDefinition, "idx_persistence_value_point_id",
                 Arrays.asList("point_id", "happened_date"), PhoenixHelper.IndexType.LOCAL,
@@ -68,7 +67,6 @@ public class TableDefinitionConfiguration {
                 null, null);
 
         PhoenixHelper.setTableSaltBuckets(tableDefinition, 30);
-        PhoenixHelper.setTableImmutableRows(tableDefinition, true);
 
         PhoenixHelper.addIndex(tableDefinition, "idx_filtered_value_point_id",
                 Arrays.asList("point_id", "happened_date"), PhoenixHelper.IndexType.LOCAL,
@@ -108,7 +106,6 @@ public class TableDefinitionConfiguration {
                 null, null);
 
         PhoenixHelper.setTableSaltBuckets(tableDefinition, 30);
-        PhoenixHelper.setTableImmutableRows(tableDefinition, true);
 
         PhoenixHelper.addIndex(tableDefinition, "idx_triggered_value_point_id",
                 Arrays.asList("point_id", "happened_date"), PhoenixHelper.IndexType.LOCAL,
