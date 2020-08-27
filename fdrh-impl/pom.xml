@@ -7,7 +7,7 @@
     <parent>
         <artifactId>fdrh</artifactId>
         <groupId>com.dwarfeng</groupId>
-        <version>1.0.1.a</version>
+        <version>1.0.2.a</version>
     </parent>
 
     <artifactId>fdrh-impl</artifactId>
@@ -263,4 +263,21 @@
             <artifactId>fdr-impl</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Maven 清理插件，用于清理测试时留下的日志。 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>logs</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
