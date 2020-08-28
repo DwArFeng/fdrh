@@ -41,6 +41,14 @@
             <fileMode>0644</fileMode>
         </fileSet>
         <fileSet>
+            <outputDirectory>conf/hbase</outputDirectory>
+            <directory>src/main/resources/hbase</directory>
+            <includes>
+                <include>*.properties</include>
+            </includes>
+            <fileMode>0644</fileMode>
+        </fileSet>
+        <fileSet>
             <outputDirectory>conf/fdrh</outputDirectory>
             <directory>src/main/resources/fdrh</directory>
             <includes>
