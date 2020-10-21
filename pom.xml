@@ -404,6 +404,17 @@
                 <artifactId>spring-terminator</artifactId>
                 <version>${spring-terminator.version}</version>
             </dependency>
+            <!-- spring-telqos组件 -->
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>spring-telqos-core</artifactId>
+                <version>${spring-telqos.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>spring-telqos-api</artifactId>
+                <version>${spring-telqos.version}</version>
+            </dependency>
             <!-- dcti标准接口 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>

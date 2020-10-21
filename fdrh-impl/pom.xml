@@ -145,6 +145,16 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>subgrade-impl</artifactId>
         </dependency>
+        <!-- spring-terminator组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>spring-terminator</artifactId>
+        </dependency>
+        <!-- spring-telqos组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>spring-telqos-core</artifactId>
+        </dependency>
         <!-- dcti标准接口 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
