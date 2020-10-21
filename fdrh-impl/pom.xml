@@ -171,8 +171,24 @@
         </dependency>
         <!-- Phoenix组件 -->
         <dependency>
+            <groupId>org.apache.twill</groupId>
+            <artifactId>twill-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.twill</groupId>
+            <artifactId>twill-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.twill</groupId>
+            <artifactId>twill-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.phoenix</groupId>
             <artifactId>phoenix-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.twill</groupId>
+            <artifactId>twill-zookeeper</artifactId>
         </dependency>
         <!-- joda-time工具 -->
         <dependency>

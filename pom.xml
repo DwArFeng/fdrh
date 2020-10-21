@@ -37,7 +37,7 @@
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
         <jedis.version>2.9.0</jedis.version>
         <solrj.version>4.10.3</solrj.version>
-        <dubbo.version>2.7.5</dubbo.version>
+        <dubbo.version>2.7.6</dubbo.version>
         <netty.version>4.1.43.Final</netty.version>
         <curator.version>4.2.0</curator.version>
         <zkclient.version>0.11</zkclient.version>
@@ -56,16 +56,18 @@
         <dutil.version>beta-0.2.1.a</dutil.version>
         <kafka.version>2.4.0</kafka.version>
         <snowflake.version>1.2.4.a</snowflake.version>
-        <subgrade.version>1.1.1.b</subgrade.version>
-        <spring-terminator.version>1.0.3.a</spring-terminator.version>
+        <subgrade.version>1.1.2.a</subgrade.version>
+        <spring-terminator.version>1.0.7.a</spring-terminator.version>
+        <spring-telqos.version>1.1.1.a</spring-telqos.version>
         <dcti.version>1.1.0.a</dcti.version>
         <groovy.version>3.0.2</groovy.version>
         <jackson.version>2.10.2</jackson.version>
         <phoenix.version>5.0.0-HBase-2.0</phoenix.version>
+        <twill-common.version>0.8.0</twill-common.version>
         <joda-time.version>2.5</joda-time.version>
         <hadoop.version>3.0.0</hadoop.version>
         <protobuf.version>2.5.0</protobuf.version>
-        <fdr.version>1.7.2.a</fdr.version>
+        <fdr.version>1.8.5.a</fdr.version>
         <!-- Maven插件版本声明 -->
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -433,6 +435,50 @@
             </dependency>
             <!-- Phoenix组件 -->
             <dependency>
+                <groupId>org.apache.twill</groupId>
+                <artifactId>twill-core</artifactId>
+                <version>${twill-common.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>gson</artifactId>
+                        <groupId>com.google.code.gson</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.twill</groupId>
+                <artifactId>twill-common</artifactId>
+                <version>${twill-common.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>jsr305</artifactId>
+                        <groupId>com.google.code.findbugs</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.twill</groupId>
+                <artifactId>twill-api</artifactId>
+                <version>${twill-common.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>jsr305</artifactId>
+                        <groupId>com.google.code.findbugs</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.twill</groupId>
+                <artifactId>twill-zookeeper</artifactId>
+                <version>${twill-common.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>jsr305</artifactId>
+                        <groupId>com.google.code.findbugs</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.phoenix</groupId>
                 <artifactId>phoenix-core</artifactId>
                 <version>${phoenix.version}</version>
@@ -444,6 +490,10 @@
                     <exclusion>
                         <artifactId>log4j</artifactId>
                         <groupId>log4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>jsr305</artifactId>
+                        <groupId>com.google.code.findbugs</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -492,6 +542,18 @@
                         <artifactId>log4j</artifactId>
                         <groupId>log4j</groupId>
                     </exclusion>
+                    <exclusion>
+                        <artifactId>jsr305</artifactId>
+                        <groupId>com.google.code.findbugs</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>commons-cli</artifactId>
+                        <groupId>commons-cli</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.code.gson</groupId>
+                        <artifactId>gson</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -507,6 +569,10 @@
                     <exclusion>
                         <artifactId>log4j</artifactId>
                         <groupId>log4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>commons-cli</artifactId>
+                        <groupId>commons-cli</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -584,6 +650,10 @@
                         <artifactId>log4j</artifactId>
                         <groupId>log4j</groupId>
                     </exclusion>
+                    <exclusion>
+                        <artifactId>commons-cli</artifactId>
+                        <groupId>commons-cli</groupId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -594,6 +664,10 @@
                     <exclusion>
                         <artifactId>log4j</artifactId>
                         <groupId>log4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>commons-cli</artifactId>
+                        <groupId>commons-cli</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
