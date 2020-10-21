@@ -28,15 +28,17 @@
         <spring-kafka.version>2.3.6.RELEASE</spring-kafka.version>
         <mysql.version>8.0.16</mysql.version>
         <fastJson.version>1.2.47</fastJson.version>
+        <gson.version>2.8.5</gson.version>
         <druid.version>1.1.20</druid.version>
+        <commons-lang.version>2.6</commons-lang.version>
         <commons-lang3.version>3.3.2</commons-lang3.version>
-        <commons-io.version>1.3.2</commons-io.version>
+        <commons-io.version>2.6</commons-io.version>
         <commons-net.version>3.3</commons-net.version>
-        <pagehelper.version>4.0.3</pagehelper.version>
-        <jsqlparser.version>0.9.1</jsqlparser.version>
-        <commons-fileupload.version>1.3.1</commons-fileupload.version>
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
+        <commons-math3.version>3.6.1</commons-math3.version>
+        <commons-codec.version>1.11</commons-codec.version>
+        <commons-cli.version>1.4</commons-cli.version>
         <jedis.version>2.9.0</jedis.version>
-        <solrj.version>4.10.3</solrj.version>
         <dubbo.version>2.7.6</dubbo.version>
         <netty.version>4.1.43.Final</netty.version>
         <curator.version>4.2.0</curator.version>
@@ -61,7 +63,8 @@
         <spring-telqos.version>1.1.1.a</spring-telqos.version>
         <dcti.version>1.1.0.a</dcti.version>
         <groovy.version>3.0.2</groovy.version>
-        <jackson.version>2.10.2</jackson.version>
+        <fasterxml-jackson.version>2.10.2</fasterxml-jackson.version>
+        <codehaus-jackson.version>1.9.13</codehaus-jackson.version>
         <phoenix.version>5.0.0-HBase-2.0</phoenix.version>
         <twill-common.version>0.8.0</twill-common.version>
         <joda-time.version>2.5</joda-time.version>
@@ -98,12 +101,17 @@
             </dependency>
             <!-- Apache工具组件 -->
             <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${commons-lang.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.commons</groupId>
+                <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
             </dependency>
@@ -112,11 +120,61 @@
                 <artifactId>commons-net</artifactId>
                 <version>${commons-net.version}</version>
             </dependency>
-            <!-- FastJson Json处理工具包 -->
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-math3</artifactId>
+                <version>${commons-math3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-cli</groupId>
+                <artifactId>commons-cli</artifactId>
+                <version>${commons-cli.version}</version>
+            </dependency>
+            <!--JSON工具包 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastJson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${fasterxml-jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${fasterxml-jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${fasterxml-jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-core-asl</artifactId>
+                <version>${codehaus-jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>${codehaus-jackson.version}</version>
             </dependency>
             <!-- Dubbo分布式包 -->
             <dependency>
@@ -146,6 +204,10 @@
                     <exclusion>
                         <artifactId>log4j</artifactId>
                         <groupId>log4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>netty</artifactId>
+                        <groupId>io.netty</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -288,12 +350,6 @@
                 <artifactId>jedis</artifactId>
                 <version>${jedis.version}</version>
             </dependency>
-            <!-- solr客户端 -->
-            <dependency>
-                <groupId>org.apache.solr</groupId>
-                <artifactId>solr-solrj</artifactId>
-                <version>${solrj.version}</version>
-            </dependency>
             <!-- zookeeper客户端 -->
             <dependency>
                 <groupId>com.101tec</groupId>
@@ -397,6 +453,12 @@
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>subgrade-impl</artifactId>
                 <version>${subgrade.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <!-- spring-terminator组件 -->
             <dependency>
@@ -428,22 +490,6 @@
                 <type>pom</type>
                 <version>${groovy.version}</version>
             </dependency>
-            <!-- Jackson组件 -->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-annotations</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
             <!-- Phoenix组件 -->
             <dependency>
                 <groupId>org.apache.twill</groupId>
@@ -451,8 +497,20 @@
                 <version>${twill-common.version}</version>
                 <exclusions>
                     <exclusion>
-                        <artifactId>gson</artifactId>
-                        <groupId>com.google.code.gson</groupId>
+                        <artifactId>logback-core</artifactId>
+                        <groupId>ch.qos.logback</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>logback-classic</artifactId>
+                        <groupId>ch.qos.logback</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>log4j</artifactId>
+                        <groupId>log4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>netty</artifactId>
+                        <groupId>io.netty</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -487,6 +545,14 @@
                         <artifactId>jsr305</artifactId>
                         <groupId>com.google.code.findbugs</groupId>
                     </exclusion>
+                    <exclusion>
+                        <artifactId>logback-core</artifactId>
+                        <groupId>ch.qos.logback</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>logback-classic</artifactId>
+                        <groupId>ch.qos.logback</groupId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -505,6 +571,10 @@
                     <exclusion>
                         <artifactId>jsr305</artifactId>
                         <groupId>com.google.code.findbugs</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -558,12 +628,8 @@
                         <groupId>com.google.code.findbugs</groupId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>commons-cli</artifactId>
-                        <groupId>commons-cli</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.google.code.gson</groupId>
-                        <artifactId>gson</artifactId>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -582,8 +648,12 @@
                         <groupId>log4j</groupId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>commons-cli</artifactId>
-                        <groupId>commons-cli</groupId>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>netty</artifactId>
+                        <groupId>io.netty</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -601,6 +671,10 @@
                         <artifactId>slf4j-log4j12</artifactId>
                         <groupId>org.slf4j</groupId>
                     </exclusion>
+                    <exclusion>
+                        <artifactId>netty</artifactId>
+                        <groupId>io.netty</groupId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -611,6 +685,10 @@
                     <exclusion>
                         <artifactId>slf4j-log4j12</artifactId>
                         <groupId>org.slf4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>netty</artifactId>
+                        <groupId>io.netty</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -623,6 +701,10 @@
                         <artifactId>slf4j-log4j12</artifactId>
                         <groupId>org.slf4j</groupId>
                     </exclusion>
+                    <exclusion>
+                        <artifactId>netty</artifactId>
+                        <groupId>io.netty</groupId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
@@ -633,6 +715,10 @@
                     <exclusion>
                         <artifactId>slf4j-log4j12</artifactId>
                         <groupId>org.slf4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>netty</artifactId>
+                        <groupId>io.netty</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -645,12 +731,22 @@
                         <artifactId>slf4j-log4j12</artifactId>
                         <groupId>org.slf4j</groupId>
                     </exclusion>
+                    <exclusion>
+                        <artifactId>netty</artifactId>
+                        <groupId>io.netty</groupId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.hadoop</groupId>
                 <artifactId>hadoop-yarn-api</artifactId>
                 <version>${hadoop.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.hadoop</groupId>
@@ -662,8 +758,8 @@
                         <groupId>log4j</groupId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>commons-cli</artifactId>
-                        <groupId>commons-cli</groupId>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -677,8 +773,8 @@
                         <groupId>log4j</groupId>
                     </exclusion>
                     <exclusion>
-                        <artifactId>commons-cli</artifactId>
-                        <groupId>commons-cli</groupId>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -686,6 +782,34 @@
                 <groupId>org.apache.hadoop</groupId>
                 <artifactId>hadoop-yarn-server-common</artifactId>
                 <version>${hadoop.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-yarn-server-web-proxy</artifactId>
+                <version>${hadoop.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-yarn-server-nodemanager</artifactId>
+                <version>${hadoop.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <!-- protobuf工具 -->
             <dependency>
