@@ -5,6 +5,7 @@
 #### 功能构建
 
 - 更新 dubbo 的配置文件。
+- 更新推送器配置文件 push.properties。
 
 #### Bug修复
 
