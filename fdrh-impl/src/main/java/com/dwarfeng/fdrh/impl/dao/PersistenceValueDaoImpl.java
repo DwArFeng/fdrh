@@ -6,6 +6,7 @@ import com.dwarfeng.subgrade.impl.dao.JdbcBatchBaseDao;
 import com.dwarfeng.subgrade.impl.dao.JdbcBatchWriteDao;
 import com.dwarfeng.subgrade.impl.dao.JdbcEntireLookupDao;
 import com.dwarfeng.subgrade.impl.dao.JdbcPresetLookupDao;
+import com.dwarfeng.subgrade.sdk.database.definition.TableDefinition;
 import com.dwarfeng.subgrade.sdk.database.executor.DatabaseTask;
 import com.dwarfeng.subgrade.sdk.database.executor.JdbcDatabaseExecutor;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
@@ -18,6 +19,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,6 +40,10 @@ public class PersistenceValueDaoImpl implements PersistenceValueDao {
     @Autowired(required = false)
     @Qualifier("persistenceValueInitDatabaseTask")
     private DatabaseTask<?> initDatabaseTask;
+
+    @Autowired
+    @Qualifier("persistenceValueTableDefinition")
+    private TableDefinition tableDefinition;
 
     @PostConstruct
     public void init() {
@@ -159,5 +165,25 @@ public class PersistenceValueDaoImpl implements PersistenceValueDao {
     @BehaviorAnalyse
     public void batchWrite(List<PersistenceValue> entities) throws DaoException {
         batchWriteDao.batchWrite(entities);
+    }
+
+    @Override
+    public PersistenceValue previous(LongIdKey pointKey, Date date) throws DaoException {
+        try {
+            return DaoUtil.previous(jdbcTemplate, tableDefinition, pointKey, date, resultSet -> {
+                if (resultSet.next()) {
+                    return new PersistenceValue(
+                            new LongIdKey(resultSet.getLong(1)),
+                            pointKey,
+                            new Date(resultSet.getTimestamp(2).getTime()),
+                            resultSet.getString(3)
+                    );
+                } else {
+                    return null;
+                }
+            });
+        } catch (Exception e) {
+            throw new DaoException(e);
+        }
     }
 }

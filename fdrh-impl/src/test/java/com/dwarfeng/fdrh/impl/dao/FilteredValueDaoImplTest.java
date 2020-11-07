@@ -164,4 +164,26 @@ public class FilteredValueDaoImplTest {
             }
         }
     }
+
+    @Test
+    public void previousTest() throws Exception {
+        try {
+            for (FilteredValue filteredValue : filteredValues) {
+                if (!filteredValueDao.exists(filteredValue.getKey())) {
+                    filteredValueDao.insert(filteredValue);
+                }
+            }
+            FilteredValue previous = filteredValueDao.previous(new LongIdKey(-2L), new Date(101));
+            assertNotNull(previous);
+            assertEquals(filteredValues.get(5).getKey(), previous.getKey());
+            previous = filteredValueDao.previous(new LongIdKey(-2L), new Date(100));
+            assertNull(previous);
+        } finally {
+            for (FilteredValue filteredValue : filteredValues) {
+                if (filteredValueDao.exists(filteredValue.getKey())) {
+                    filteredValueDao.delete(filteredValue.getKey());
+                }
+            }
+        }
+    }
 }

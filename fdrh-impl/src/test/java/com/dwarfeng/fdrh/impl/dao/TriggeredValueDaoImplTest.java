@@ -164,4 +164,26 @@ public class TriggeredValueDaoImplTest {
             }
         }
     }
+
+    @Test
+    public void previousTest() throws Exception {
+        try {
+            for (TriggeredValue triggeredValue : triggeredValues) {
+                if (!triggeredValueDao.exists(triggeredValue.getKey())) {
+                    triggeredValueDao.insert(triggeredValue);
+                }
+            }
+            TriggeredValue previous = triggeredValueDao.previous(new LongIdKey(-2L), new Date(101));
+            assertNotNull(previous);
+            assertEquals(triggeredValues.get(5).getKey(), previous.getKey());
+            previous = triggeredValueDao.previous(new LongIdKey(-2L), new Date(100));
+            assertNull(previous);
+        } finally {
+            for (TriggeredValue triggeredValue : triggeredValues) {
+                if (triggeredValueDao.exists(triggeredValue.getKey())) {
+                    triggeredValueDao.delete(triggeredValue.getKey());
+                }
+            }
+        }
+    }
 }

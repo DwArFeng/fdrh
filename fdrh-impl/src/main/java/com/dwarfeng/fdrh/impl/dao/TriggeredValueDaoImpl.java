@@ -6,6 +6,7 @@ import com.dwarfeng.subgrade.impl.dao.JdbcBatchBaseDao;
 import com.dwarfeng.subgrade.impl.dao.JdbcBatchWriteDao;
 import com.dwarfeng.subgrade.impl.dao.JdbcEntireLookupDao;
 import com.dwarfeng.subgrade.impl.dao.JdbcPresetLookupDao;
+import com.dwarfeng.subgrade.sdk.database.definition.TableDefinition;
 import com.dwarfeng.subgrade.sdk.database.executor.DatabaseTask;
 import com.dwarfeng.subgrade.sdk.database.executor.JdbcDatabaseExecutor;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
@@ -18,6 +19,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,6 +40,10 @@ public class TriggeredValueDaoImpl implements TriggeredValueDao {
     @Autowired(required = false)
     @Qualifier("triggeredValueInitDatabaseTask")
     private DatabaseTask<?> initDatabaseTask;
+
+    @Autowired
+    @Qualifier("triggeredValueTableDefinition")
+    private TableDefinition tableDefinition;
 
     @PostConstruct
     public void init() {
@@ -159,5 +165,27 @@ public class TriggeredValueDaoImpl implements TriggeredValueDao {
     @BehaviorAnalyse
     public void batchWrite(List<TriggeredValue> entities) throws DaoException {
         batchWriteDao.batchWrite(entities);
+    }
+
+    @Override
+    public TriggeredValue previous(LongIdKey pointKey, Date date) throws DaoException {
+        try {
+            return DaoUtil.previous(jdbcTemplate, tableDefinition, pointKey, date, resultSet -> {
+                if (resultSet.next()) {
+                    return new TriggeredValue(
+                            new LongIdKey(resultSet.getLong(1)),
+                            pointKey,
+                            new LongIdKey(resultSet.getLong(2)),
+                            new Date(resultSet.getTimestamp(3).getTime()),
+                            resultSet.getString(4),
+                            resultSet.getString(5)
+                    );
+                } else {
+                    return null;
+                }
+            });
+        } catch (Exception e) {
+            throw new DaoException(e);
+        }
     }
 }

@@ -150,4 +150,26 @@ public class PersistenceValueDaoImplTest {
             }
         }
     }
+
+    @Test
+    public void previousTest() throws Exception {
+        try {
+            for (PersistenceValue persistenceValue : persistenceValues) {
+                if (!persistenceValueDao.exists(persistenceValue.getKey())) {
+                    persistenceValueDao.insert(persistenceValue);
+                }
+            }
+            PersistenceValue previous = persistenceValueDao.previous(new LongIdKey(-2L), new Date(101));
+            assertNotNull(previous);
+            assertEquals(persistenceValues.get(5).getKey(), previous.getKey());
+            previous = persistenceValueDao.previous(new LongIdKey(-2L), new Date(100));
+            assertNull(previous);
+        } finally {
+            for (PersistenceValue persistenceValue : persistenceValues) {
+                if (persistenceValueDao.exists(persistenceValue.getKey())) {
+                    persistenceValueDao.delete(persistenceValue.getKey());
+                }
+            }
+        }
+    }
 }
