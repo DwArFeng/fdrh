@@ -7,7 +7,7 @@
     <parent>
         <artifactId>fdrh</artifactId>
         <groupId>com.dwarfeng</groupId>
-        <version>1.2.1.b-SNAPSHOT</version>
+        <version>1.2.1.b</version>
     </parent>
 
     <artifactId>fdrh-impl</artifactId>
