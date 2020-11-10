@@ -8,6 +8,7 @@ import com.dwarfeng.subgrade.impl.dao.JdbcEntireLookupDao;
 import com.dwarfeng.subgrade.impl.dao.JdbcPresetLookupDao;
 import com.dwarfeng.subgrade.sdk.database.definition.TableDefinition;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
+import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.exception.DaoException;
@@ -87,48 +88,52 @@ public class FilteredValueDaoImpl implements FilteredValueDao {
 
     @Override
     @BehaviorAnalyse
-    public List<LongIdKey> batchInsert(List<FilteredValue> entities) throws DaoException {
+    @SkipRecord
+    public List<LongIdKey> batchInsert(@SkipRecord List<FilteredValue> entities) throws DaoException {
         return batchBaseDao.batchInsert(entities);
     }
 
     @Override
     @BehaviorAnalyse
-    public void batchUpdate(List<FilteredValue> entities) throws DaoException {
+    public void batchUpdate(@SkipRecord List<FilteredValue> entities) throws DaoException {
         batchBaseDao.batchUpdate(entities);
     }
 
     @Override
     @BehaviorAnalyse
-    public void batchDelete(List<LongIdKey> keys) throws DaoException {
+    public void batchDelete(@SkipRecord List<LongIdKey> keys) throws DaoException {
         batchBaseDao.batchDelete(keys);
     }
 
     @Override
     @BehaviorAnalyse
-    public boolean allExists(List<LongIdKey> keys) throws DaoException {
+    public boolean allExists(@SkipRecord List<LongIdKey> keys) throws DaoException {
         return batchBaseDao.allExists(keys);
     }
 
     @Override
     @BehaviorAnalyse
-    public boolean nonExists(List<LongIdKey> keys) throws DaoException {
+    public boolean nonExists(@SkipRecord List<LongIdKey> keys) throws DaoException {
         return batchBaseDao.nonExists(keys);
     }
 
     @Override
     @BehaviorAnalyse
-    public List<FilteredValue> batchGet(List<LongIdKey> keys) throws DaoException {
+    @SkipRecord
+    public List<FilteredValue> batchGet(@SkipRecord List<LongIdKey> keys) throws DaoException {
         return batchBaseDao.batchGet(keys);
     }
 
     @Override
     @BehaviorAnalyse
+    @SkipRecord
     public List<FilteredValue> lookup() throws DaoException {
         return entireLookupDao.lookup();
     }
 
     @Override
     @BehaviorAnalyse
+    @SkipRecord
     public List<FilteredValue> lookup(PagingInfo pagingInfo) throws DaoException {
         return entireLookupDao.lookup(pagingInfo);
     }
@@ -141,12 +146,14 @@ public class FilteredValueDaoImpl implements FilteredValueDao {
 
     @Override
     @BehaviorAnalyse
+    @SkipRecord
     public List<FilteredValue> lookup(String preset, Object[] objs) throws DaoException {
         return presetLookupDao.lookup(preset, objs);
     }
 
     @Override
     @BehaviorAnalyse
+    @SkipRecord
     public List<FilteredValue> lookup(String preset, Object[] objs, PagingInfo pagingInfo) throws DaoException {
         return presetLookupDao.lookup(preset, objs, pagingInfo);
     }
@@ -165,7 +172,7 @@ public class FilteredValueDaoImpl implements FilteredValueDao {
 
     @Override
     @BehaviorAnalyse
-    public void batchWrite(List<FilteredValue> entities) throws DaoException {
+    public void batchWrite(@SkipRecord List<FilteredValue> entities) throws DaoException {
         batchWriteDao.batchWrite(entities);
     }
 
