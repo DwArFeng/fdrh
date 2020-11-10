@@ -70,7 +70,7 @@
         <joda-time.version>2.5</joda-time.version>
         <hadoop.version>3.0.0</hadoop.version>
         <protobuf.version>2.5.0</protobuf.version>
-        <fdr.version>1.9.0.a</fdr.version>
+        <fdr.version>1.9.1.a</fdr.version>
         <!-- Maven插件版本声明 -->
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
