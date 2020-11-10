@@ -7,12 +7,12 @@ import com.dwarfeng.subgrade.impl.dao.JdbcBatchWriteDao;
 import com.dwarfeng.subgrade.impl.dao.JdbcEntireLookupDao;
 import com.dwarfeng.subgrade.impl.dao.JdbcPresetLookupDao;
 import com.dwarfeng.subgrade.sdk.database.definition.TableDefinition;
-import com.dwarfeng.subgrade.sdk.database.executor.DatabaseTask;
-import com.dwarfeng.subgrade.sdk.database.executor.JdbcDatabaseExecutor;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.exception.DaoException;
+import com.dwarfeng.subgrade.stack.handler.DatabaseHandler;
+import com.dwarfeng.subgrade.stack.handler.DatabaseTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -45,11 +45,13 @@ public class TriggeredValueDaoImpl implements TriggeredValueDao {
     @Qualifier("triggeredValueTableDefinition")
     private TableDefinition tableDefinition;
 
+    @Autowired
+    private DatabaseHandler<Object> databaseHandler;
+
     @PostConstruct
-    public void init() {
+    public void init() throws Exception {
         if (Objects.nonNull(initDatabaseTask)) {
-            JdbcDatabaseExecutor<Object> executor = new JdbcDatabaseExecutor<>(jdbcTemplate);
-            executor.executeTask(initDatabaseTask);
+            databaseHandler.executeTask(initDatabaseTask);
         }
     }
 

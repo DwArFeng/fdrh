@@ -11,19 +11,21 @@ import com.dwarfeng.fdrh.impl.dao.processor.PersistenceValueHandle;
 import com.dwarfeng.fdrh.impl.dao.processor.TriggeredValueHandle;
 import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
 import com.dwarfeng.subgrade.impl.dao.*;
+import com.dwarfeng.subgrade.impl.handler.JdbcDatabaseHandler;
 import com.dwarfeng.subgrade.sdk.bean.key.HibernateLongIdKey;
 import com.dwarfeng.subgrade.sdk.bean.key.HibernateStringIdKey;
 import com.dwarfeng.subgrade.sdk.database.ddl.PhoenixCreateTableDatabaseTask;
 import com.dwarfeng.subgrade.sdk.database.definition.TableDefinition;
-import com.dwarfeng.subgrade.sdk.database.executor.DatabaseTask;
-import com.dwarfeng.subgrade.sdk.database.jdbc.PhoenixBatchBaseProcessor;
-import com.dwarfeng.subgrade.sdk.database.jdbc.PhoenixBatchWriteProcessor;
-import com.dwarfeng.subgrade.sdk.database.jdbc.PhoenixEntireLookupProcessor;
-import com.dwarfeng.subgrade.sdk.database.jdbc.PhoenixPresetLookupProcessor;
 import com.dwarfeng.subgrade.sdk.hibernate.modification.DefaultDeletionMod;
+import com.dwarfeng.subgrade.sdk.jdbc.processor.PhoenixBatchBaseProcessor;
+import com.dwarfeng.subgrade.sdk.jdbc.processor.PhoenixBatchWriteProcessor;
+import com.dwarfeng.subgrade.sdk.jdbc.processor.PhoenixEntireLookupProcessor;
+import com.dwarfeng.subgrade.sdk.jdbc.processor.PhoenixPresetLookupProcessor;
 import com.dwarfeng.subgrade.sdk.redis.formatter.LongIdStringKeyFormatter;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
+import com.dwarfeng.subgrade.stack.handler.DatabaseHandler;
+import com.dwarfeng.subgrade.stack.handler.DatabaseTask;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -453,5 +455,10 @@ public class DaoConfiguration {
     @Bean("triggeredValueInitDatabaseTask")
     public DatabaseTask<?> triggeredValueInitDatabaseTask() {
         return new PhoenixCreateTableDatabaseTask(triggeredValueTableDefinition);
+    }
+
+    @Bean
+    public DatabaseHandler<Object> databaseHandler() {
+        return new JdbcDatabaseHandler<>(jdbcTemplate);
     }
 }

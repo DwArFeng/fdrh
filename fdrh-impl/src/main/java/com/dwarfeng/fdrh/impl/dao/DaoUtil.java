@@ -1,7 +1,7 @@
 package com.dwarfeng.fdrh.impl.dao;
 
 import com.dwarfeng.subgrade.sdk.database.definition.TableDefinition;
-import com.dwarfeng.subgrade.sdk.database.jdbc.SQLUtil;
+import com.dwarfeng.subgrade.sdk.jdbc.processor.SQLUtil;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;

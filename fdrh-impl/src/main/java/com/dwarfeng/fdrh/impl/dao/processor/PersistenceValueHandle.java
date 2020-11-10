@@ -3,9 +3,9 @@ package com.dwarfeng.fdrh.impl.dao.processor;
 import com.dwarfeng.fdr.stack.bean.entity.PersistenceValue;
 import com.dwarfeng.fdr.stack.service.PersistenceValueMaintainService;
 import com.dwarfeng.subgrade.sdk.database.definition.ColumnDefinition;
-import com.dwarfeng.subgrade.sdk.database.jdbc.BaseHandle;
-import com.dwarfeng.subgrade.sdk.database.jdbc.PresetLookupHandle;
-import com.dwarfeng.subgrade.sdk.database.jdbc.QueryInfo;
+import com.dwarfeng.subgrade.sdk.jdbc.handle.BaseHandle;
+import com.dwarfeng.subgrade.sdk.jdbc.handle.PresetLookupHandle;
+import com.dwarfeng.subgrade.sdk.jdbc.handle.QueryInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import org.springframework.stereotype.Component;
 
