@@ -6,7 +6,7 @@
 
     <groupId>com.dwarfeng</groupId>
     <artifactId>fdrh</artifactId>
-    <version>1.2.1.a-SNAPSHOT</version>
+    <version>1.2.1.a</version>
 
     <packaging>pom</packaging>
 
@@ -837,27 +837,27 @@
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>fdrh-impl</artifactId>
-                <version>1.2.1.a-SNAPSHOT</version>
+                <version>1.2.1.a</version>
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>fdrh-node-all</artifactId>
-                <version>1.2.1.a-SNAPSHOT</version>
+                <version>1.2.1.a</version>
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>fdrh-node-inspect</artifactId>
-                <version>1.2.1.a-SNAPSHOT</version>
+                <version>1.2.1.a</version>
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>fdrh-node-maintain</artifactId>
-                <version>1.2.1.a-SNAPSHOT</version>
+                <version>1.2.1.a</version>
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>fdrh-node-record</artifactId>
-                <version>1.2.1.a-SNAPSHOT</version>
+                <version>1.2.1.a</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
