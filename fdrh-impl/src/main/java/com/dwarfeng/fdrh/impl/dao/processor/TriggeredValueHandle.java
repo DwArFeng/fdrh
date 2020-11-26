@@ -12,11 +12,21 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
+@SuppressWarnings("DuplicatedCode")
 @Component
 public class TriggeredValueHandle implements BaseHandle<LongIdKey, TriggeredValue>, PresetLookupHandle<TriggeredValue> {
+
+    private static final Map<String, QueryInfo.Ordering> ORDERING_MAP;
+
+    static {
+        ORDERING_MAP = new HashMap<>();
+        ORDERING_MAP.put("happened_date", QueryInfo.Ordering.ASC);
+    }
 
     @Override
     public TriggeredValue newInstance() {
@@ -113,7 +123,7 @@ public class TriggeredValueHandle implements BaseHandle<LongIdKey, TriggeredValu
         Object[] parameters;
         whereClause = "happened_date >= ? AND happened_date < ?";
         parameters = new Object[]{args[0], args[1]};
-        return new QueryInfo(whereClause, null, parameters);
+        return new QueryInfo(whereClause, ORDERING_MAP, parameters);
     }
 
     private QueryInfo presetChildForTrigger(Object[] args) {
@@ -127,7 +137,7 @@ public class TriggeredValueHandle implements BaseHandle<LongIdKey, TriggeredValu
             whereClause = "trigger_id=?";
             parameters = new Object[]{key.getLongId()};
         }
-        return new QueryInfo(whereClause, null, parameters);
+        return new QueryInfo(whereClause, ORDERING_MAP, parameters);
     }
 
     private QueryInfo presetChildForTriggerBetween(Object[] args) {
@@ -141,7 +151,7 @@ public class TriggeredValueHandle implements BaseHandle<LongIdKey, TriggeredValu
             whereClause = "trigger_id = ? AND happened_date >= ? AND happened_date < ?";
             parameters = new Object[]{key.getLongId(), args[1], args[2]};
         }
-        return new QueryInfo(whereClause, null, parameters);
+        return new QueryInfo(whereClause, ORDERING_MAP, parameters);
     }
 
     private QueryInfo presetChildForTriggerSet(Object[] args) {
@@ -161,7 +171,7 @@ public class TriggeredValueHandle implements BaseHandle<LongIdKey, TriggeredValu
                 parameters = longIdKeys.stream().map(LongIdKey::getLongId).toArray();
             }
         }
-        return new QueryInfo(whereClause, null, parameters);
+        return new QueryInfo(whereClause, ORDERING_MAP, parameters);
     }
 
     private QueryInfo presetChildForPoint(Object[] args) {
@@ -175,7 +185,7 @@ public class TriggeredValueHandle implements BaseHandle<LongIdKey, TriggeredValu
             whereClause = "point_id=?";
             parameters = new Object[]{key.getLongId()};
         }
-        return new QueryInfo(whereClause, null, parameters);
+        return new QueryInfo(whereClause, ORDERING_MAP, parameters);
     }
 
     private QueryInfo presetChildForPointBetween(Object[] args) {
@@ -189,6 +199,6 @@ public class TriggeredValueHandle implements BaseHandle<LongIdKey, TriggeredValu
             whereClause = "point_id = ? AND happened_date >= ? AND happened_date < ?";
             parameters = new Object[]{key.getLongId(), args[1], args[2]};
         }
-        return new QueryInfo(whereClause, null, parameters);
+        return new QueryInfo(whereClause, ORDERING_MAP, parameters);
     }
 }

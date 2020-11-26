@@ -8,7 +8,10 @@
 
 #### Bug修复
 
-- (无)
+- 修正数据访问层查询数据时数据未按照发生时间升序排序的bug。
+  - com.dwarfeng.fdrh.impl.dao.processor.FilteredValueHandle
+  - com.dwarfeng.fdrh.impl.dao.processor.PersistenceValueHandle
+  - com.dwarfeng.fdrh.impl.dao.processor.TriggeredValueHandle
 
 #### 功能移除
 
