@@ -69,7 +69,7 @@
         <twill-common.version>0.8.0</twill-common.version>
         <joda-time.version>2.5</joda-time.version>
         <hadoop.version>3.0.0</hadoop.version>
-        <protobuf.version>2.5.0</protobuf.version>
+        <protobuf.version>3.16.3</protobuf.version>
         <fdr.version>1.9.1.b</fdr.version>
         <!-- Maven插件版本声明 -->
         <maven-clean-plugin.version>2.5</maven-clean-plugin.version>
