@@ -63,7 +63,7 @@
         <spring-telqos.version>1.1.1.a</spring-telqos.version>
         <dcti.version>1.1.0.a</dcti.version>
         <groovy.version>3.0.2</groovy.version>
-        <fasterxml-jackson.version>2.10.2</fasterxml-jackson.version>
+        <fasterxml-jackson.version>2.13.4.1</fasterxml-jackson.version>
         <codehaus-jackson.version>1.9.13</codehaus-jackson.version>
         <phoenix.version>5.0.0-HBase-2.0</phoenix.version>
         <twill-common.version>0.8.0</twill-common.version>
