@@ -33,7 +33,7 @@
         <commons-lang.version>2.6</commons-lang.version>
         <commons-lang3.version>3.3.2</commons-lang3.version>
         <commons-io.version>2.6</commons-io.version>
-        <commons-net.version>3.3</commons-net.version>
+        <commons-net.version>3.9.0</commons-net.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-math3.version>3.6.1</commons-math3.version>
         <commons-codec.version>1.11</commons-codec.version>
